@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+	<script src="jquery.js"></script><!-- 1.10.2 -->
+
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+  	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"><!-- 3.3.7 -->
+  	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.min.css"><!-- 3.3.7 --> 	
+  	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body style="width:750px;height:600px;background-color: #2E4053">
+	<div class="container" style="margin-bottom:20px;">
+		<div class="starter-template" id="message" style="text-align:center;color:white;float:left;top:12px;left:360px;position:absolute"></div>
+		<div class="row">
+			<div class="col-md-4" style="float:left;left:0px;top:0px;margin-top:10px;margin-bottom: 10px">
+		        <div class="logo"></div>
+      		</div>
+			<div class="col-md-4" style="float:left;color:white">
+	        	<h3><span class="" id="title"></span></h3>
+      		</div>
+      		<div style="float:right;margin:15px;top:0px">
+		    	<a class="btn btn-info" href="historyUpdates.html" id="button-updates">
+		    		<span class="glyphicon glyphicon-bell"></span>
+		    		<span class="notification" id="notification-counter"></span>
+		    	</a>
+
+				<button type="submit" class="btn btn-info" id="button-report" tabindex="-1">
+					<span class="glyphicon glyphicon-exclamation-sign"></span>
+				</button>
+
+				<button type="submit" class="btn btn-info" id="button-help" tabindex="-1">
+					<span class="glyphicon glyphicon-question-sign"></span>
+				</button>
+
+      		<a type="submit" class="btn btn-info" href="popup_help.html" tabindex="-1">
+					<span class="glyphicon glyphicon-question-sign"></span> HELPME
+				</a>
+			</div>
+
+      	</div>
+        <div class="row">
+        	<div class="col-lg-12" id="panel-search">
+			    <div class="input-group">
+			    	<div class="input-group-btn">
+			        	<button type="button" class="btn btn-default dropdown-toggle" style="width:120px;color:#2183d5;" id="button-type-search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" tabindex="-1">
+			        		<span class="glyphicon glyphicon-search" style="color:#2183d5;left:8px;top:8px;position:absolute;"></span>Pax<span class="caret" style="color:#2183d5;left:95px;top:13px;position:absolute;"></span>
+			        	</button>
+
+			        	<ul class="dropdown-menu dropdown-menu-left" id="menu-type-search">
+			          		<li><a href="#">Título</a></li>
+			          		<li><a href="#">Conteúdo</a></li>
+			        	</ul>
+			      	</div>
+			      	<input type="text" class="form-control" id="input-search" style="width:100%">
+			      	<div class="input-group-btn">
+			      		<button class="btn btn-default" type="button" id="button-search-all" style="color:#2183d5;" tabindex="-1">
+			        		<span class="glyphicon glyphicon-asterisk" style="color:#2183d5;"></span> Tudo
+			        	</button>
+			        	<button type="button" class="btn btn-default dropdown-toggle" style="width:120px;color:#2183d5;" id="button-category" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" tabindex="-1">
+			        		<span class="glyphicon glyphicon-user" style="color:#2183d5;left:8px;top:8px;position:absolute;"></span>Pax<span class="caret" style="color:#2183d5;left:95px;top:13px;position:absolute;"></span>
+			        	</button>
+			        	<button class="btn btn-info" type="button" id="button-add" tabindex="-1"">
+				    		<span class="glyphicon glyphicon-plus" style="margin-right:10px"></span>
+				    	</button>
+
+			        	<ul class="dropdown-menu dropdown-menu-right" id="menu-category">
+			          		<li><a href="#">Pax</a></li>
+			          		<li><a href="#">Driver</a></li>
+			          		<!--<li role="separator" class="divider"></li>
+			          		<li><a href="#">Public (Manutencao)</a></li>-->
+			        	</ul>
+			      	</div>
+			    </div>
+		  	</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-12" id="panel-macros" style="margin-top:5px;margin-bottom: 0px;"></div>
+    	</div>    	
+    	
+		<div class="row">
+			<div class="col-lg-12" style="margin-top:10px;width:100%">
+				<div class="btn-group" role="group" aria-label="..." style="width:100%">
+				<button type="submit" class="btn btn-info" id="button-inject" 
+				style="display: none;width:38%;margin-bottom: 10px;" 
+				>
+		    		<span class="glyphicon glyphicon-import" style="margin-right:5px"></span>Inserir Macro<b style="color:#2EFE64"></b>
+		    	</button>
+				<button type="submit" class="btn btn-primary" id="button-copy" 
+				style="display: none;width:24%;margin-bottom: 10px;">
+					<span class="glyphicon glyphicon-copy" style="margin-right:10px"></span>Copiar
+				</button>
+
+				<button type="submit" class="btn btn-warning " id="button-change" style="display:none;width:19%;margin-bottom: 10px;">
+					    		<span class="glyphicon glyphicon-pencil" style="margin-right:10px"></span>Editar
+					    	</button>
+		    	<button type="submit" class="btn btn-danger " id="button-remove" style="display:none;width:19%;margin-bottom: 10px;">
+		    		<span class="glyphicon glyphicon-trash" style="margin-right:10px"></span>Remover
+		    	</button>
+			</div>
+		</div>
+
+<!-- ---------------------------------------------------------------------------------------- -->
+		<div class="row">
+			<div class="col-lg-4" style=";margin-left:15px;margin-right:15px" id="panel-title-read">
+				<input type="text" id="input-title-read" placeholder="Titulo da macro" readonly>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-4" style="height:100%;margin-left:15px;margin-right:15px" id="panel-macro-read">
+		    	<textarea style="margin-bottom: 40px;" type="text" class="form-control" id="input-macro-read" rows="6" placeholder="Macro Aqui" readonly></textarea>
+		    </div>
+		</div>
+<!-- ---------------------------------------------------------------------------------------- -->
+	</div><!--container-->
+
+	<div class="btn-group-vertical"style="position:fixed;left:0px;top:455px" role="group" aria-label="...">
+		<button type="submit" class="btn btn-xs btn-success btn-opacity" style="text-align: left;padding-top: 8px;padding-bottom: 8px" id="button-ride-mis">
+			<span class="glyphicon glyphicon-list-alt"></span> Ferramenta 1
+		</button>
+		<button type="submit" class="btn btn-xs btn-warning btn-opacity" style="text-align: left;width:100px;padding-top: 8px;padding-bottom: 8px" id="button-map">
+			<span class="glyphicon glyphicon-road"></span> Ferramenta 2
+		</button>
+		
+		<button type="submit" class="btn btn-xs btn-info btn-opacity" style="text-align: left;padding-top: 8px;padding-bottom: 8px" id="button-profile-pax">
+			<span class="glyphicon glyphicon-user"></span> Ferramenta 3
+		</button>
+		<button type="submit" class="btn btn-xs btn-default btn-opacity" style="text-align: left;padding-top: 8px;padding-bottom: 8px" id="button-tickets-relatives">
+			<span class="glyphicon glyphicon-th-list"></span> Ferrament<span id="refresh" class="glyphicon glyphicon-refresh animationIconRefresh" style="float:right"></span>
+		</button>					
+	</div>
+
+	<div class="btn-group"style="position:fixed;left:465px;top:570px" role="group" aria-label="...">
+		<button type="button" class="btn btn-xs btn-info" style="width:68px" id="button-tickets" tabindex="-1"><span class="glyphicon glyphicon-flag"></span> Tratad.</button>
+    	<button type="button" class="btn btn-xs btn-info" style="width:68px" id="button-info" tabindex="-1"><span class="glyphicon glyphicon-info-sign"></span> Info</button>
+    	<button type="button" class="btn btn-xs btn-info" style="width:68px" id="button-shortcuts" tabindex="-1"><span class="glyphicon glyphicon-font"></span> Atalhos</button>
+    	<button type="button" class="btn btn-xs btn-danger" style="width:68px" id="button-config" tabindex="-1"><span class="glyphicon glyphicon-cog"></span> Config</button>
+	</div>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-config" style="display:none;width:700px;height:90%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:99%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Recursos Adicionais</h4>
+				</div>
+
+			  	<div class="modal-body">
+			    	<div style="background-color:#c9f3ff;border-radius:4px;padding:10px"><b style="color:#ec5757">PASSOS PARA REALIZAR IMPORTAÇÃO MS</b><br>
+						<b>1)</b> Execute o backup baixado;<br>
+						<b>2)</b> Em cima da pagina aberta, abra o MS Extension;<br>
+						<b>3)</b> Abra esta mesma janela chamada <b>"Recursos adicionais"</b>;</br>
+						<b>4)</b> Precione o botão <b>"Importar"</b>.
+					</div>
+			    	<div class="buttons-config" style="width:100%">
+			    		<button type="submit" class="btn btn-info " id="button-backup" style="width:200px;margin:5px">
+			    			<span class="glyphicon glyphicon-import" style="margin-right:10px"></span>Exportar
+			    		</button>
+			    		
+			    		<button type="submit" class="btn btn-success " id="button-import-ms" style="width:200px;margin:5px" disabled>
+			    			<span class="glyphicon glyphicon-export" style="margin-right:10px"></span>Importar
+			    		</button>
+			    		<a href="import-txt.html" class="btn btn-success " id="button-import-txt" style="width:200px;margin:5px" disabled>
+			    			<span class="glyphicon glyphicon-import" style="margin-right:10px"></span>Importar Texto
+			    		</a>
+						<textarea type="text" class="form-control" id="text-all-macros" rows="2"></textarea>
+			    		<br><br><button type="submit" class="btn btn-xs btn-warning " id="button-capture-all-macros" style="width:200px;margin:5px">
+			    			<span class="glyphicon glyphicon-copy" style="margin-right:10px"></span>Capturar Todas Macros
+			    		</button><br>
+			    		<button type="submit" class="btn btn-xs btn-danger " id="button-remove-all-macros" style="width:200px;margin:5px">
+			    			<span class="glyphicon glyphicon-trash" style="margin-right:10px"></span>Remover Todas Macros
+			    		</button>
+			    	</div>
+			    	<br>
+				    	<div style="background-color:#e3c5ff;border-radius:4px;padding:10px">
+				    	<input type="checkbox" id="check-phone-remember" value="1">Check 1<br>
+				    	<input type="checkbox" id="check-show-panel-tickets" value="1">Check 2<br>
+				    	<input type="checkbox" id="check-show-buttons-inject-copy" value="1">Exibir botão "Inserir" e "Copiar"<br>
+			    	</div>
+			  	</div>
+
+			  	<div class="modal-footer">
+			    	<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-button-ok">OK</button>
+			    	<!--<button type="button" class="btn btn-primary">Save changes</button>-->
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-info" style="display:none;width:500px;height:90%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:98%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Informações</h4>
+				</div>
+				<div class="modal-body">
+					<div class="panel-info">
+						<span id="user"></span>
+						<br>
+			    		<span class="num-macros-pax badge"></span> Macros PAX
+			    		<span class="num-macros-driver badge"></span> Macros DRV
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-button-ok">OK</button>
+					<!--<button type="button" class="btn btn-primary">Save changes</button>-->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-shortcuts" style="display:none;width:500px;height:90%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:98%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Atalhos</h4>
+				</div>
+
+				<div class="modal-body">
+					<p id="shortcuts-externs">
+						<b style="font-size: 12px;color:red">Fora do MS (Quando o MS está fechado)</b>
+					</p>
+					<p id="shortcuts-interns">
+						<b style="font-size: 12px;color:red">Dentro do MS (Quando o MS está aberto)</b>
+					</p>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-button-ok">OK</button>
+					<!--<button type="button" class="btn btn-primary">Save changes</button>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-notification" style="display:none;width:550px;height:85%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:98%">
+			<div class="modal-content" style="background-color: white;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" style="color: #8e0048;">Notificação</h4>
+				</div>
+				<div class="modal-body" style="background-color: #8e0048;color:white;padding-top: 1px">
+					<p class="content"></p>
+				</div>
+
+				<div class="modal-footer" style="background-color: white">
+					<button type="button" class="btn btn-success" data-dismiss="modal" id="modal-button-read-notification">Li a mensagem <span class="glyphicon glyphicon-ok"></span></button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-report" style="display:none;width:500px;height:80%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:98%">
+			<div class="modal-content" style="background-color: #32e4da;">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" style="color: #370f94;">Notificação</h4>
+				</div>
+				<div class="modal-body" style="background-color: #085f5a;color:white">
+					SUPORTE:<br>
+					israelgomes.prog@gmail.com<br>
+					(83) 98700-8115<br><br>
+					<button type="button" class="btn btn-default" id="button-form-report">FORMULÁRIO DE REPORT</button>
+				</div>
+
+				<div class="modal-footer" style="background-color: #32e4da">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-button">OK</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-remember" style="display:none;width:500px;height:80%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:98%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" style="color: #370f94;">Notificação</h4>
+				</div>
+				<div class="modal-body">
+					Lembre-se de inserir o +55!
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="button-modal-remember-ok">OK</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-tickets" style="display:none;width:600px;height:90%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:98%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"">Tickets Salvos</h4>
+				</div>
+				<div class="modal-body">
+					<dir class="content"></dir>
+					<button type="button" class="btn btn-default" id="button-clear-tickets">Limpar Tickets</button>
+				</div>
+
+				<div class="modal-footer" >
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-button">OK</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-relatives" style="display:none;width:600px;height:80%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:98%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"">Todos chamados registrados</h4>
+				</div>
+				<div class="modal-body">
+					<dir id="content-relatives"></dir>
+				</div>
+
+				<div class="modal-footer" >
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-button">OK</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-help" style="display:none;width:400px;height:80%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:98%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"">Ajuda</h4>
+				</div>
+				<div class="modal-body">
+					<a href="helps/Guia_de_uso_MS_Extension.htm"> Guia de uso</a><br>
+					<a href="helps/Tutorial_para_instalação_de_MS_Extension.htm">Como instalar</a><br>
+					<a href="helps/Tutorial_para_atualização_do_MS_Extension.htm">Como atualizar</a><br>
+					
+					<b><a id="button-form-backup-error" href="#">Não consigo exportar / importar minhas Macros!</a></b><br>
+					<b><a href="popup_help.html" id="link-helpme">MS HELPME</a></b>
+				</div>
+
+				<div class="modal-footer" >
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-button">OK</button>
+
+					<!-- <button type="button" class="btn btn-default" id="button-popover">POPOVER</button> -->
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="myPopover" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Title<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p></p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default">Não entendi</button>
+        </div>
+    </div>
+
+    <div id="panel-ticket-pax">
+    	PAX
+    	<button type="submit" class="btn btn-xs btn-danger " id="button-ticket-pax-red">
+			<span class="glyphicon glyphicon-envelope"></span>
+		</button>
+		<button type="submit" class="btn btn-xs  btn-warning " id="button-ticket-pax-yellow" >
+			<span class="glyphicon glyphicon-envelope"></span>
+		</button>
+		<button type="submit" class="btn btn-xs  btn-success" id="button-ticket-pax-green">
+			<span class="glyphicon glyphicon-envelope"></span>
+		</button>
+	</div>
+	<div id="panel-ticket-drv">
+    	DRV
+    	<button type="submit" class="btn btn-xs btn-danger " id="button-ticket-drv-red">
+			<span class="glyphicon glyphicon-envelope"></span>
+		</button>
+		<button type="submit" class="btn btn-xs  btn-warning " id="button-ticket-drv-yellow" >
+			<span class="glyphicon glyphicon-envelope"></span>
+		</button>
+		<button type="submit" class="btn btn-xs  btn-success" id="button-ticket-drv-green">
+			<span class="glyphicon glyphicon-envelope"></span>
+		</button>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-import-txt" style="display:none;width:650px;height:1000px">
+		<div class="modal-dialog" role="document" style="width:98%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body">
+					<p class="content"></p>
+					<div class="row">
+			      		<div class="col-lg-12">
+					  		<div class="starter-template" style="float:left;color:red">
+							</div>
+						</div>
+			      	</div>
+			    	
+					<div class="row">
+						<div class="col-md-4" style="">
+							<div class="input-group">
+					        	<input type="text" class="form-control" id="input-character-regex" style="width:100%" placeholder="Expressão regular">
+						      	<div class="input-group-btn">
+						        	<button type="button" class="btn btn-default dropdown-toggle" style="width:120px;color:#2183d5;" id="button-category-import-txt" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						        		<span class="glyphicon glyphicon-user" style="color:#2183d5;left:8px;top:8px;position:absolute;"></span>Pax<span class="caret" style="color:#2183d5;left:95px;top:13px;position:absolute;"></span>
+						        	</button>
+
+						        	<ul class="dropdown-menu dropdown" id="menu-import">
+						          		<li><a href="#">Pax</a></li>
+						          		<li><a href="#">Driver</a></li>
+						        	</ul>
+						      	</div>
+						    </div>
+						</div>
+						
+						<div class="col-md-4">
+							<div style="margin-top:10px">
+								<button type="submit" class="btn btn-info btn-lg" id="button-detect-macros" 
+								style="width:49%;margin-bottom: 10px;font-size: 18px">
+						    		<span class="glyphicon glyphicon-import" style="margin-right:5px"></span>Detectar Macros<b style="color:#2EFE64"></b>
+						    	</button>
+
+						    	<button type="submit" class="btn btn-success btn-lg" id="button-import-txt-macros" 
+								style="width:49%;margin-bottom: 10px;font-size: 18px" disabled>
+						    		<span class="glyphicon glyphicon-import" style="margin-right:5px"></span>Importar Macros<b style="color:#2EFE64"></b>
+						    	</button>
+							</div> 
+						</div> 
+					
+						<div class="row">
+							<div class="col-lg-12" style="height:100%;width:100%">
+							    <div id="panel-macro">
+						    		<table class="table table-striped table-hover" id="table-macros-import-txt">
+							            <thead>
+							              	<tr>
+							                	<th>#</th>
+							                	<th>Título da Macro</th>
+							              	</tr>
+							            </thead>
+							            <tbody>
+							            </tbody>
+							        </table>
+						    	</div>
+						    </div>
+				    	</div>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-edit" data-backdrop="static" data-keyboard="false" style="display:none;width:690px;height:99%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:99%;height:450px">
+			<div class="modal-content" style="width:98%;height:450px">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"">Ajuda</h4>
+				</div>
+				<div class="modal-body" style="background-color: #0d5653;" style="width:98%">
+					<div class="row">
+						<div class="col-lg-12" id="panel-title-edit">
+							<input type="text" id="input-title-edit" placeholder="Titulo da macro">
+						</div>
+			            
+					</div>
+					
+					<div class="row">
+						<div class="col-lg-12" style="height:90%;width:100%">
+						    <div id="panel-macro-edit">
+					    		<textarea type="text" class="form-control" id="input-macro-edit" rows="6" placeholder="Macro Aqui"></textarea>
+
+					    	</div>
+					    	<div id="panel-variables-edit">
+						    	<label id="label-variables">VARIÁVEIS</label>
+								<select multiple id="variables">
+								</select>
+							</div>
+					    </div>
+					</div>
+					
+				</div>
+
+				<div class="modal-footer" style="margin-bottom: 0px;padding-bottom: 0px" >
+					<button type="submit" class="btn btn-success " id="button-save" data-dismiss="modal" style="display: none;width:24%;margin-bottom: 10px;font-size: 18px"  data-toggle="modal" data-target="#msgAlert">
+					    <span class="glyphicon glyphicon-floppy-save" style="margin-right:10px"></span>Salvar
+			    	</button>
+			    	<button type="submit" class="btn btn-default " id="button-cancel" data-dismiss="modal" style="display: none;width:24%;margin-bottom: 10px;font-size: 18px">
+			    		<span class="glyphicon glyphicon-remove" style="margin-right:10px"></span>Cancelar
+			    	</button>
+
+					<!-- <button type="button" class="btn btn-default" id="button-popover">POPOVER</button> -->
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-alert" style="display:none;min-width:20%;max-width:60%;height:60%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:400px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"></h4>
+				</div>
+
+				<div class="modal-body">
+					<div class="content"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-alert-ok">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-ask" style="display:none;min-width:20%;max-width:60%;height:60%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:400px">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"></h4>
+				</div>
+
+				<div class="modal-body">
+					<div class="content"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success" data-dismiss="modal" id="modal-button-ask-ok">Sim</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-button-ask-cancel">Cancelar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+</html>

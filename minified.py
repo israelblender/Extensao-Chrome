@@ -1,0 +1,1 @@
+from jsmin import jsmin

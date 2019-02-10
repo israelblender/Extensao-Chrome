@@ -1,0 +1,450 @@
+.title-same:focus {
+	outline: none!important;
+	border-color: #719ECE;
+	box-shadow: 0 0 20px #719ECE
+}
+
+input[id="input-title-edit"] {
+	background-color: #add8e6;
+	color: #00699c;
+	text-align: center;
+	border: 3px solid #476a8c;
+	border-radius: 4px;
+	padding-left: 10px;
+	width: 100%;
+	margin-top: 0;
+	margin-bottom: 5px;
+	height: 30px;
+	float: left;
+	border: 1px solid #1ab1a8
+}
+
+input[id="input-title-read"] {
+	background-color: #2E4053;
+	color: #b2ff00;
+	text-align: center;
+	font-size: 18px;
+	border: 1px solid #1ab1a8;
+	background-color: rgba(113, 113, 113, 0.5);
+	border-radius: 4px;
+	padding-left: 10px;
+	width: 100%;
+	margin-top: 0;
+	margin-bottom: 5px;
+	height: 35px;
+	float: left;
+	border: 1px solid #1ab1a8
+}
+
+input::selection {
+	background: #20d4de;
+	color: #fff
+}
+
+textarea[id="input-macro-edit"] {
+	background-color: #add8e6;
+	color: #00699c;
+	font-size: 13px;
+	border: 3px solid #476a8c;
+	min-width: 100%;
+	max-width: 100%;
+	height: 100%
+}
+
+textarea[id="input-macro-read"]:read-only {
+	color: #95ecfc;
+	border: 1px solid #1ab1a8;
+	background-color: rgba(113, 113, 113, 0.5);
+	min-width: 100%;
+	height: 423px;
+}
+
+textarea::selection {
+	background: #7fb519;
+	color: #fff
+}
+
+#button-add {
+	width: 37px;
+	border-radius: 4px;
+	/*font-size: 18px*/
+}
+
+#panel-title {
+	width: 100%
+}
+
+#panel-macro {
+	margin-top: 10px;
+	width: 100%;
+	height: 300px;
+	float: left;
+}
+#panel-variables {
+	border-radius: 5px;
+	
+	width: 20%;
+	height: 423px;
+	margin-top: 8px;
+	position: absolute;
+	float: right;
+	
+}
+
+#panel-title-edit {
+	width: 100%;
+}
+
+#panel-macro-edit {
+	margin-top: 10px;
+	width: 75%;
+	height: 370px;
+	position: relative;
+	float: right;
+}
+
+#panel-variables-edit {
+	border-radius: 5px;
+	margin-top: 8px;
+	width: 25%;
+	height: 340px;
+	position: relative;
+	float: left;
+	
+}
+#variables{
+	font-size: 11px;
+	height:  100%;
+}
+
+@keyframes animationRefresh{
+	100% {
+		transform:rotate(360deg);
+	}
+}
+.animationIconRefresh{
+	animation: animationRefresh 1s linear infinite;
+}
+
+
+
+@keyframes animationPanelTitleOpen {
+	0% {
+		width: 93%
+	}
+	100% {
+		width: 100%
+	}
+}
+
+@keyframes animationPanelTitleClose {
+	0% {
+		width: 100%
+	}
+	100% {
+		width: 93%
+	}
+}
+
+@keyframes animationButtonAddOpen {
+	0% {
+		left: 0
+	}
+	100% {
+		left: 50%
+	}
+}
+
+@keyframes animationButtonAddClose {
+	0% {
+		left: 50%
+	}
+	100% {
+		left: 0
+	}
+}
+
+@keyframes animationPanelVariablesOpen {
+	0% {
+		left: 120%;
+		top: 0;
+		height: 0;
+		width: 0
+	}
+	100% {
+		left: 80%;
+		top: 0;
+		height: 423px;
+		width: 20%
+	}
+}
+
+@keyframes animationPanelVariablesClose {
+	0% {
+		left: 80%;
+		top: 0;
+		height: 423px;
+		width: 20%
+	}
+	100% {
+		left: 120%;
+		top: 0;
+		height: 0;
+		width: 0
+	}
+}
+
+@keyframes animationPanelMacroOpen {
+	0% {
+		height: 300px;
+		width: 100%
+	}
+	100% {
+		height: 400px;
+		width: 80%
+	}
+}
+
+@keyframes animationPanelMacroClose {
+	0% {
+		height: 400px;
+		width: 80%
+	}
+	100% {
+		height: 300px;
+		width: 100%
+	}
+}
+
+.animation-panel-title-open {
+	animation: animationPanelTitleOpen 1s 1 forwards
+}
+
+.animation-panel-title-close {
+	animation: animationPanelTitleClose 1s 1 forwards
+}
+
+.animation-button-add-open {
+	animation-name: animationButtonAddOpen;
+	animation-duration: 1s;
+	animation-delay: 0;
+	animation-fill-mode: forwards
+}
+
+.animation-button-add-close {
+	animation-name: animationButtonAddClose;
+	animation-duration: 1s;
+	animation-delay: 0;
+	animation-fill-mode: forwards
+}
+
+.animation-panel-open {
+	animation-name: animationPanelVariablesOpen;
+	animation-duration: 1s;
+	animation-delay: 0
+}
+
+.animation-panel-close {
+	animation-name: animationPanelVariablesClose;
+	animation-duration: 1.5s;
+	animation-delay: 0;
+	animation-fill-mode: forwards
+}
+
+.animation-panel-macro-open {
+	animation-name: animationPanelMacroOpen;
+	animation-duration: 1s;
+	animation-delay: 0;
+	animation-fill-mode: forwards
+}
+
+.animation-panel-macro-close {
+	animation-name: animationPanelMacroClose;
+	animation-duration: 1.5s;
+	animation-delay: 0;
+	animation-fill-mode: forwards
+}
+
+#label-variables {
+	border-radius: 5px;
+	background-color: rgba(113, 113, 113, 0.5);
+	border: 1px solid #1ab1a8;
+	color: #fff;
+	text-align: center;
+	width: 100%
+}
+
+select {
+	border-radius: 5px;
+	width: 100%;
+	height: 340px;
+	left: 0;
+	text-align: center
+}
+
+select:disabled {
+	background-color: #2E4053;
+	color: #95ecfc;
+	border: 1px solid #1ab1a8
+}
+
+select:enabled {
+	background-color: rgba(113, 113, 113, 0.5);
+	color: #95ecfc;
+	cursor: copy
+}
+
+.logo {
+	background-image: url(icon48.png);
+	background-repeat: no-repeat;
+	width: 55px;
+	height: 55px;
+	border: 1px solid #1ab1a8;
+	border-radius: 5px;
+	background-position: center
+}
+
+#input-macro::selection {
+	background: #7fb519;
+	color: #fff
+}
+
+.title-same {
+	background-color: rgba(46, 64, 83, 0);
+	background-image:linear-gradient(to left, rgba(89, 64, 83, 0), rgba(255, 153, 0, 0.66));
+
+	color: #fff;
+	width: 100%;
+	padding: 8px;
+	border: none;
+	margin: 1px;
+	border-radius: 3px
+}
+
+.title-same:hover {
+	background-image: linear-gradient(to left, rgba(89, 64, 83, 0), #7dd6ea);
+}
+
+.table-striped>tbody>tr:nth-child(even)>td,
+.table-striped>tbody>tr:nth-child(even)>th {
+	background-color: #4894b3
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+	background-color: #2d7e98
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+	background-color: #56b395
+}
+
+.table thead tr {
+	color: red
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+	padding: 8px;
+	line-height: 1.42857143;
+	vertical-align: top;
+	border-top: 0 solid #ddd;
+	color: #000;
+	text-align: center
+}
+
+.table tbody tr td {
+	color: #fff
+}
+
+img.update {
+	border: 2px solid white;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 60%
+}
+
+img.notific{
+	border: 1px solid white;
+	display: inline;
+	margin-left: auto;
+	margin-right: auto;
+}
+	
+img.left{
+	position: relative;
+	/*float:left;*/
+}
+img.right{
+	position: relative;
+	float:right;
+}
+
+.notification {
+	background-color: red;
+	position: absolute;
+	color:white;
+	left: 505px;
+	top: 10px;
+	padding: 0 4px;
+	border-radius: 4px
+}
+
+*/ .table-striped>tbody>tr:nth-child(even)>td,
+.table-striped>tbody>tr:nth-child(even)>th {
+	background-color: #4894b3
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+	background-color: #2d7e98
+}
+
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+	background-color: #87ceeb
+}
+
+.table thead tr {
+	color: #fff
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+	padding: 8px;
+	line-height: 1.42857143;
+	vertical-align: top;
+	border-top: 0 solid #ddd
+}
+
+#panel-tools,
+#panel-ticket-drv,
+#panel-ticket-pax {
+	border: 1px solid #1ab1a8;
+	padding: 5px;
+	border-radius: 5px;
+	color: #fff;
+	position: relative;
+	margin-top: 20px;
+	top: 10px;
+	width: 130px;
+	display: none
+}
+
+
+.btn-opacity{
+	opacity:0.5;
+}
+.btn-opacity:hover{
+	opacity:1;
+}

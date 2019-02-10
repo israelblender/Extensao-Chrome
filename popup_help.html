@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="utf-8">
+
+	<script src="jquery.js"></script>
+	<script src="modules/utilities.js"></script>
+	<script src="modules/localStorage.js"></script>
+	<script src="injections.js"></script>
+	<script src="import-txt.js"></script>
+	<script src="popup_help.js"></script>
+
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+  	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+  	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.min.css">
+
+  	
+  	
+  	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body style="width:750px;height:600px;background-color: #6f104d">
+
+	<div class="container" style="margin-bottom:20px;">
+		<div class="starter-template" id="message" style="text-align:center;color:white;float:left;top:12px;left:360px;position:absolute"></div>
+		<div class="row">
+			<div class="col-md-4" style="float:left;left:0px;top:5px">
+		        <div class="logo"></div>
+      		</div>
+			<div class="col-md-4" style="float:left;color:white">
+				<div class="starter-template">
+		        	<h3><span class="" id="title"></span></h3>
+		        	<p class="lead" id="subtitle"></p>
+      			</div>
+
+      		</div>
+      		
+      		<div class="col-md-12" style="float:right;top:15px;">
+		    	<a class="btn btn-danger" href="popup.html" id="button-home" style="width:450px">
+					<span class="glyphicon glyphicon-home"></span> SAIR DO MS HELPME
+				</a>
+
+		    	<a class="btn btn-default" href="#" id="button-updates" data-toggle="popover-x" data-target="#popover-button-updates" data-placement="left">
+		    		<span class="glyphicon glyphicon-bell"></span>
+		    		<span class="notification" id="notification-counter"></span>
+		    	</a>
+      			
+				<button type="submit" class="btn btn-default" id="button-report" data-toggle="popover-x" data-target="#popover-button-report" data-placement="left">
+					<span class="glyphicon glyphicon-exclamation-sign"></span>
+				</button>
+
+				<button type="submit" class="btn btn-default" id="button-help" data-toggle="popover-x" data-target="#popover-button-help" data-placement="left">
+					<span class="glyphicon glyphicon-question-sign"></span>
+				</button>
+      		</div>
+
+      	</div>
+        <div class="row">
+        	<div class="col-lg-12" id="panel-search">
+			    <div class="input-group">
+			    	<div class="input-group-btn">
+			        	<button type="button" class="btn btn-default dropdown-toggle" style="width:120px;color:black;" data-toggle="popover-x" data-target="#popover-type-search" data-placement="right">
+			        		<span class="glyphicon glyphicon-search" style="color:black;left:8px;top:8px;position:absolute;"></span>Título<span class="caret" style="color:black;left:95px;top:13px;position:absolute;"></span>
+			        	</button>
+
+			      	</div>
+			      	<input type="text" class="form-control" id="input-search" style="width:100%" data-toggle="popover-x" data-target="#popover-input-search" data-placement="bottom">
+			      	<div class="input-group-btn">
+			      		<button class="btn btn-default" type="button" id="button-search-all" style="color:black;" data-toggle="popover-x" data-target="#popover-button-search-all" data-placement="bottom">
+			        		<span class="glyphicon glyphicon-asterisk" style="color:black;"></span> Tudo
+			        	</button>
+			        	<button type="button" class="btn btn-default dropdown-toggle" style="width:120px;color:black;" id="button-category" data-toggle="popover-x" data-target="#popover-button-category" data-placement="bottom">
+			        		<span class="glyphicon glyphicon-user" style="color:black;left:8px;top:8px;position:absolute;"></span>Pax<span class="caret" style="color:black;left:95px;top:13px;position:absolute;"></span>
+			        	</button>
+			      	</div>
+			    </div>
+		  	</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-12" id="panel-macros" style="margin-top:5px;margin-bottom: 0px;"></div>
+    	</div>    	
+    	
+		<div class="row">
+			<div class="col-lg-12" style="margin-top:10px">
+				<button type="submit" class="btn btn-default" id="button-inject" 
+				style="width:36%;margin-bottom: 10px;font-size: 18px" data-toggle="popover-x" data-target="#popover-button-inject" data-placement="bottom"
+				>
+		    		<span class="glyphicon glyphicon-import" style="margin-right:5px"></span>Inserir Macro<b style="color:#2EFE64"></b>
+		    	</button>
+				<button type="submit" class="btn btn-default" id="button-copy" 
+				style="width:24%;margin-bottom: 10px;font-size: 18px" data-toggle="popover-x" data-target="#popover-button-copy" data-placement="bottom">
+					<span class="glyphicon glyphicon-copy" style="margin-right:10px"></span>Copiar
+				</button>
+
+				<button type="submit" class="btn btn-default " id="button-save" style="display:none;width:24%;margin-bottom: 10px;font-size: 18px" data-toggle="popover-x" data-target="#popover-button-save" data-placement="bottom">
+		    		<span class="glyphicon glyphicon-floppy-save" style="margin-right:10px"></span>Salvar
+		    	</button>
+		    	<button type="submit" class="btn btn-default " id="button-cancel" style="display:none;width:24%;margin-bottom: 10px;font-size: 18px" data-toggle="popover-x" data-target="#popover-button-cancel" data-placement="bottom">
+		    		<span class="glyphicon glyphicon-remove" style="margin-right:10px"></span>Cancelar
+		    	</button>
+		    	<button type="submit" class="btn btn-default " id="button-change" style="width:19%;margin-bottom: 10px;font-size: 18px" data-toggle="popover-x" data-target="#popover-button-change" data-placement="bottom">
+		    		<span class="glyphicon glyphicon-pencil" style="margin-right:10px"></span>Editar
+		    	</button>
+		    	<button type="submit" class="btn btn-default " id="button-remove" style="width:19%;margin-bottom: 10px;font-size: 18px" data-toggle="popover-x" data-target="#popover-button-remove" data-placement="left">
+		    		<span class="glyphicon glyphicon-trash" style="margin-right:10px"></span>Remover
+		    	</button>
+			</div> 
+		</div> 
+		<div class="row">
+			<div class="col-lg-4" id="panel-title-read">
+				<input type="text" id="input-title-read" placeholder="Titulo da macro" data-toggle="popover-x" data-target="#popover-input-title" data-placement="bottom" readonly>
+			</div>
+        <div class="row">
+			<div class="col-lg-12" style="height:100%;width:100%">
+			    <div id="panel-macro-read">
+		    		<textarea style="margin-bottom: 40px;" type="text" class="form-control" id="input-macro-read" rows="6" placeholder="Macro Aqui" data-toggle="popover-x" data-target="#popover-input-macro" data-placement="bottom" readonly></textarea>
+		    	</div>
+		    </div>
+		</div>
+
+		<div class="row">				    	
+		    <div class="col-lg-4" style="position:fixed;left:0px;top:560px">
+				<div id="panel-tools" style="display:inline;">
+					<button type="submit" class="btn btn-xs  btn-default" id="button-map" data-toggle="popover-x" data-target="#popover-button-maps" data-placement="bottom">
+						<span class="glyphicon glyphicon-road"></span> Rota Maps
+					</button>
+					<button type="submit" class="btn btn-xs  btn-default" id="button-ride-mis" data-toggle="popover-x" data-target="#popover-button-mis" data-placement="bottom">
+						<span class="glyphicon glyphicon-list-alt"></span> Corrida MIS
+					</button>
+					<button type="submit" class="btn btn-xs  btn-default" id="button-tickets-relatives" data-toggle="popover-x" data-target="#popover-button-relatives" data-placement="bottom">
+						<span class="glyphicon glyphicon-list-alt"></span> Todos chamados
+					</button>
+					<!-- <button type="submit" class="btn btn-xs btn-info " id="button-links">
+						<span class="glyphicon glyphicon-link" style="margin-right:10px"></span>HORAS | AWAYA| CS
+					</button> -->
+				</div>
+			</div>
+			<div class="col-lg-4" style="position:fixed;left:400px;top:560px">
+				<div id="panel-tools" style="display:inline;">
+			    	<button type="button" class="btn btn-xs btn-default" style="width:68px" id="button-info"  data-toggle="popover-x" data-target="#popover-button-info" data-placement="top"><span class="glyphicon glyphicon-info-sign"></span> Info</button>
+			    	<button type="button" class="btn btn-xs btn-default" style="width:68px" id="button-shortcuts" data-toggle="popover-x" data-target="#popover-button-shortcuts" data-placement="top"><span class="glyphicon glyphicon-font"></span> Atalhos</button>
+			    	<button type="button" class="btn btn-xs btn-default" style="width:68px" id="button-tickets"  data-toggle="popover-x" data-target="#popover-button-tickets" data-placement="top"><span class="glyphicon glyphicon-flag"></span> Tickets</button>
+			    	<button type="button" class="btn btn-xs btn-default" style="width:68px" id="button-config"  data-toggle="popover-x" data-target="#popover-button-config" data-placement="top"><span class="glyphicon glyphicon-wrench"></span> Config</button>
+				</div>
+			</div>
+    	</div>
+	</div>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-config" style="display:none;width:700px;height:90%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:99%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Recursos Adicionais</h4>
+				</div>
+
+			  	<div class="modal-body">
+			    	<div style='background-color:#c9f3ff;border-radius:4px;padding:10px'><b style='color:#ec5757'>PASSOS PARA REALIZAR IMPORTAÇÃO MS</b><br>
+						<b>1)</b> Execute o backup baixado;<br>
+						<b>2)</b> Em cima da pagina aberta, abra o MS Extension;<br>
+						<b>3)</b> Abra esta mesma janela chamada <b>\"Recursos adicionais\"</b>;</br>
+						<b>4)</b> Precione o botão <b>"Importar"</b>.
+					</div>
+			    	<div class="buttons-config" style="width:100%">
+			    		<button type="submit" class="btn btn-info " id="button-backup" style="width:200px;margin:5px">
+			    			<span class="glyphicon glyphicon-import" style="margin-right:10px"></span>Exportar
+			    		</button>
+			    		
+			    		<button type="submit" class="btn btn-success " id="button-import-ms" style="width:200px;margin:5px">
+			    			<span class="glyphicon glyphicon-export" style="margin-right:10px"></span>Importar
+			    		</button>
+			    		<button type="submit" class="btn btn-success " id="button-import-txt" style="width:200px;margin:5px" disabled>
+			    			<span class="glyphicon glyphicon-import" style="margin-right:10px"></span>Importar .Txt
+			    		</button>
+			    	</div>
+			    	<br>
+				    	<div style='background-color:#e3c5ff;border-radius:4px;padding:10px'>
+				    	<input type="checkbox" id="check-phone-remember" value="1">Lembrar +55<br>
+				    	<input type="checkbox" id="check-show-panel-tickets" value="1">Exibir play<br>
+				    	<input type="checkbox" id="check-show-buttons-inject-copy" value="1">Exibir botão "Inserir" e "Copiar"<br>
+			    	</div>
+			  	</div>
+
+			  	<div class="modal-footer">
+			    	<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-button-ok">OK</button>
+			    	<!--<button type="button" class="btn btn-primary">Save changes</button>-->
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+		
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-tickets" style="display:none;width:600px;height:90%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:98%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"">Notificação</h4>
+				</div>
+				<div class="modal-body">
+					<dir class="content"></dir>
+					<button type="button" class="btn btn-default" id="button-clear-tickets">Limpar Tickets</button>
+				</div>
+
+				<div class="modal-footer" >
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-button">OK</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-relatives" style="display:none;width:600px;height:80%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:98%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"">Todos chamados registrados</h4>
+				</div>
+				<div class="modal-body">
+					<dir id="content-relatives"></dir>
+				</div>
+
+				<div class="modal-footer" >
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-button">OK</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="modal-help" style="display:none;width:400px;height:80%;margin:auto">
+		<div class="modal-dialog" role="document" style="width:98%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title"">Ajuda</h4>
+				</div>
+				<div class="modal-body">
+					<a href="helps/Guia_de_uso_MS_Extension.htm"> Guia de uso</a><br>
+					<a href="helps/Tutorial_para_instalação_de_MS_Extension.htm">Como instalar</a><br>
+					<a href="helps/Tutorial_para_atualização_do_MS_Extension.htm">Como atualizar</a><br>
+					<b><a href="popup_help.html" id="link-helpme">MS HELPME</a>
+				</div>
+
+				<div class="modal-footer" >
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="modal-button">OK</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <div id="panel-ticket-pax">
+    	PAX
+    	<button type="submit" class="btn btn-xs btn-danger " id="button-ticket-pax-red">
+			<span class="glyphicon glyphicon-envelope"></span>
+		</button>
+		<button type="submit" class="btn btn-xs  btn-warning " id="button-ticket-pax-yellow" >
+			<span class="glyphicon glyphicon-envelope"></span>
+		</button>
+		<button type="submit" class="btn btn-xs  btn-success" id="button-ticket-pax-green">
+			<span class="glyphicon glyphicon-envelope"></span>
+		</button>
+	</div>
+	<div id="panel-ticket-drv">
+    	DRV
+    	<button type="submit" class="btn btn-xs btn-danger " id="button-ticket-drv-red">
+			<span class="glyphicon glyphicon-envelope"></span>
+		</button>
+		<button type="submit" class="btn btn-xs  btn-warning " id="button-ticket-drv-yellow" >
+			<span class="glyphicon glyphicon-envelope"></span>
+		</button>
+		<button type="submit" class="btn btn-xs  btn-success" id="button-ticket-drv-green">
+			<span class="glyphicon glyphicon-envelope"></span>
+		</button>
+    </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-import-txt" style="display:none;width:650px;height:550px;margin:auto">
+		<div class="modal-dialog" role="document" style="width:98%">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modal-button-close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Importação de arquivo</h4>
+				</div>
+				<div class="modal-body">
+					<p class="content"></p>
+					<div class="row">
+			      		<div class="col-lg-12">
+					  		<div class="starter-template" style="float:left;color:red">
+								
+							</div>
+						</div>
+			      	</div>
+			    	
+					<div class="row">
+						<div class="col-md-4" style="">
+							<div class="input-group">
+					        	<input type="text" class="form-control" id="input-character-split" style="width:100%" placeholder="Expressão regular">
+						      	<div class="input-group-btn">
+						        	<button type="button" class="btn btn-default dropdown-toggle" style="width:120px;color:#2183d5;" id="button-category" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						        		<span class="glyphicon glyphicon-user" style="color:#2183d5;left:8px;top:8px;position:absolute;"></span>Pax<span class="caret" style="color:#2183d5;left:95px;top:13px;position:absolute;"></span>
+						        	</button>
+						      	</div>
+						    </div>
+						</div>
+						
+						<div class="col-md-4">
+						<div style="margin-top:10px">
+							<button type="submit" class="btn btn-success btn-lg" id="button-upload" 
+							style="width:100%;margin-bottom: 10px;font-size: 18px">
+					    		<span class="glyphicon glyphicon-import" style="margin-right:5px"></span>Carregar Arquivo<b style="color:#2EFE64"></b>
+					    	</button>
+						
+						</div> 
+					</div> 
+					
+					<div class="row">
+						<div class="col-lg-12" style="height:100%;width:100%">
+						    <div id="panel-macro">
+					    		<table class="table table-striped table-hover">
+						            <thead>
+						              <tr>
+						                <th>#</th>
+						                <th>Título da Macro</th>
+						              </tr>
+						            </thead>
+						            <tbody>
+						              
+						            </tbody>
+						          </table>
+					    	</div>
+					    </div>
+			    	</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="popover-button-updates" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Página de atualizações<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>Exibe painel com as principais atualizações da aplicação.<br>.
+            É muito importante que esteja atento a todas as mudanças que ocorrem na aplicação.
+            Alguma funcionalidade pode ser muito útil e produtivo para seu trabalho.
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+    <div id="popover-button-report" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Painel de report<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>Exibe painel com link de formulário para reportar uma sugestão, bug ou um aviso.
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+    <div id="popover-button-help" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Botão de Ajuda<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>Exibe painel com os principais links para ajudar a utilizar o MS
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+
+	<div id="popover-type-search" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Botão tipo de procura<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>Escolha qual tipo de pesquisa quer realizar:<br>
+			<b>Título: </b>Procupa qualquer ocorrência/palavra que encontrar no título da macro<br>
+			<b>Conteúdo: </b>Procupa qualquer ocorrência/palavra que encontrar no conteúdo da macro
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+    <div id="popover-input-search" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Campo de Texto para procura<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>Digite parte do texto do título / conteúdo que deseja procurar.
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+    <div id="popover-button-search-all" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Botão de macros<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>Retorna todas as macros da categoria selecionada (Pax ou Driver).
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+    <div id="popover-button-category" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Botão de categoria da macro<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>Selecione o tipo da macro que deseja selecionar esconhendo Pax ou Driver.
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+    <div id="popover-button-inject" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Botão de Inserir<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>Insere macro do MS diretamente no CS.
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+    <div id="popover-button-copy" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Botão de categoria da macro<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>Selecione o tipo da macro que deseja selecionar esconhendo Pax ou Driver.
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+    <div id="popover-button-add" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Botão de adição de macro<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>Permite abrir os campos de Título e Texto para cadastrar uma nova macro no MS.
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x" id="button-add-understood">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+    <div id="popover-button-change" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Botão de alterar macro<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>Permite alterar a macro, título ou conteúdo da macrol.
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x" id="button-change-understood">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+    <div id="popover-button-save" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Botão de salvar macro<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>Permite salvar a macro alterada ou adicionada.
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+    <div id="popover-button-info" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	Botão de informações<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>Exibe popup de informações com quantidade de macros em cada categoria.
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div id="popover" class="popover popover-x popover-default">
+        <div class="arrow"></div>
+        <h3 class="popover-header popover-title" id="help-title">
+        	TITULO AQUI<span class="close pull-right" data-dismiss="popover-x">&times;</span>
+        </h3>
+        <div class="popover-body popover-content" id="help-content">
+            <p>CONTEUDO DA POPOVER
+            </p>
+        </div>
+        <div class="popover-footer">
+            <button type="submit" class="btn btn-sm btn-primary" data-dismiss="popover-x">Entendi</button>
+            <button type="reset" class="btn btn-sm btn-default notunderstood">Não entendi</button>
+        </div>
+    </div>
+
+
+
+</body>
+<script src="bootstrap/js/bootstrap-popover-x.js"></script>
+<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-popover-x.min.css">
+
+</html>
